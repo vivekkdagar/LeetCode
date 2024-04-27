@@ -1,30 +1,21 @@
 class Solution {
 public:
-    vector<int> productExceptSelf(vector<int>& nums) {
-        int product = 1;
-        int numZeros = 0;
+    std::vector<int> productExceptSelf(std::vector<int>& nums) {
+        int n = nums.size();
+        std::vector<int> result(n, 1);
 
-        for (const int num : nums) {
-            if (num != 0) {
-                product *= num;
-            } else {
-                numZeros++;
-            }
+        // Compute the product of all elements to the left of each element
+        int leftProduct = 1;
+        for (int i = 0; i < n; ++i) {
+            result[i] *= leftProduct;
+            leftProduct *= nums[i];
         }
 
-        vector<int> result(nums.size(), 0);
-
-        if (numZeros == 0) {
-            for (int i = 0; i < nums.size(); ++i) {
-                result[i] = product / nums[i];
-            }
-        } else if (numZeros == 1) {
-            for (int i = 0; i < nums.size(); ++i) {
-                if (nums[i] == 0) {
-                    result[i] = product;
-                    break;
-                }
-            }
+        // Compute the product of all elements to the right of each element
+        int rightProduct = 1;
+        for (int i = n - 1; i >= 0; --i) {
+            result[i] *= rightProduct;
+            rightProduct *= nums[i];
         }
 
         return result;
