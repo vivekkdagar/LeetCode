@@ -1,10 +1,11 @@
 class Solution {
 public:
     void reverseString(vector<char>& s) {
-        if(s.size() <= 1)
+        unsigned len = s.size();
+        if(len <= 1)
             return;
         int i{0};
-        unsigned int j = s.size() - 1;
+        unsigned j = len - 1;
 
         while(i <= j) {
             swap(s[i], s[j]);
